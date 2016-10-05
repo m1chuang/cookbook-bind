@@ -140,10 +140,10 @@ end
 
 service 'bind' do
   service_name node['bind']['service_name']
-  supports reload: true, status: true
+  supports reload: true, restarts: true, status: true
   action :nothing
-  subscribes :reload, resources("template[#{node['bind']['options_file']}]"), :delayed
-  subscribes :reload, resources('execute[named-checkconf]',
-                                'execute[failsafe-checkconf]'), :delayed
+  #subscribes :reload, resources("template[#{node['bind']['options_file']}]"), :delayed
+  #subscribes :reload, resources('execute[named-checkconf]',
+  #                              'execute[failsafe-checkconf]'), :delayed
   only_if { ::File.exist?(node['bind']['options_file']) && ::File.exist?(node['bind']['conf_file']) }
 end
