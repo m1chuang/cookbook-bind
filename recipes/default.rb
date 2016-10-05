@@ -122,11 +122,11 @@ end
 
 # Run named-checkconf as a sanity check on configuration, and start service
 execute 'named-checkconf' do
-  command "/usr/sbin/named-checkconf -z #{node['bind']['conf_file']}"
+  command "/usr/sbin/named-checkconf -z #{node['bind']['conf_file']} || exit 0"
   action :nothing
   notifies :enable, 'service[bind]', :immediately
-  notifies :start, 'service[bind]', :immediately
-  only_if { ::File.exist?('/usr/sbin/named-checkconf') }
+  notifies :start, 'service[bind]', :immediately  
+  only_if { ::File.exist?('/usr/sbin/named-checkconf') },
 end
 
 # Start service if named-checkconf does not exist
