@@ -116,8 +116,8 @@ template node['bind']['conf_file'] do
     zones: all_zones.uniq.sort,
     forwardzones: forwardzones
   )
-  notifies :run, 'execute[named-checkconf]', :immediately
-  notifies :run, 'execute[failsafe-checkconf]', :immediately
+  #notifies :run, 'execute[named-checkconf]', :immediately
+  #notifies :run, 'execute[failsafe-checkconf]', :immediately
 end
 
 # Run named-checkconf as a sanity check on configuration, and start service
