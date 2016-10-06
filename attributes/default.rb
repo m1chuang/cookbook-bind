@@ -101,6 +101,9 @@ default['bind']['log_options'] = []
 default['bind']['statistics-channel'] = true
 default['bind']['statistics-port'] = 8080
 
+# Toggel setting up rndc key
+default['bind']['defaultrndc']=='False'
+
 case node['platform_family']
 when 'rhel'
   default['bind']['statistics-channel'] if node['platform_version'].to_i <= 5
