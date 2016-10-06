@@ -129,7 +129,7 @@ execute 'named-checkconf' do
   action :nothing
   notifies :enable, 'service[bind]', :immediately
   notifies :start, 'service[bind]', :immediately  
-  only_if { ::File.exist?('/usr/sbin/named-checkconf') },
+  only_if { ::File.exist?('/usr/sbin/named-checkconf') }
 end
 
 # Start service if named-checkconf does not exist
