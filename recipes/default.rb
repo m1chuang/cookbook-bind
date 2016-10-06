@@ -77,6 +77,7 @@ end
 execute 'rndc-key' do
   command node['bind']['rndc_keygen']
   not_if { ::File.exist?(node['bind']['rndc-key']) }
+  only_if {node['bind']['defaultrndc']=='True'}
 end
 
 file node['bind']['rndc-key'] do
@@ -84,6 +85,7 @@ file node['bind']['rndc-key'] do
   group node['bind']['group']
   mode 00600
   action :touch
+  only_if { ::File.exist?('/etc/bind/rndc.key') }
 end
 
 # Include zones from external source if set.
@@ -95,6 +97,7 @@ end
 
 all_zones = node['bind']['zones']['attribute'] + node['bind']['zones']['databag'] + node['bind']['zones']['ldap']
 forwardzones = node['bind']['forwardzones']
+
 
 # Render a template with all our global BIND options and ACLs
 template node['bind']['options_file'] do
